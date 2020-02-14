@@ -1,0 +1,16 @@
+.header {
+    background-color: #096a96;
+    image-resolution: 320 320;
+    width: 100%;
+    flex-wrap: wrap;
+    vertical-align: center;
+    
+}
+
+.wrapper {
+    background-color: #e8e031;
+}
+
+.content {
+    max-width: 960px;
+}
