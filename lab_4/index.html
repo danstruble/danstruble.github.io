@@ -27,8 +27,9 @@
     <script>
       function clickMe() {
 
-        var firstName = "Daniel";
-        var lastName = "Struble";
+        var name = "Daniel Struble"
+        var firstName = name.substring(0,6);
+        var lastName = name.substring(7);
         var nameLength = firstName.length + lastName.length;
 
 
@@ -36,7 +37,7 @@
         const content = document.querySelector(".content");
         content.innerHTML = "Hello world";
 
-        document.querySelector(".header").innerHTML = "Dan's Lab 4 " + nameLength;
+        document.querySelector(".header").innerHTML = firstName + "'s Lab 4 " + nameLength;
 
         const p1 = document.createElement("P");
         p1.setAttribute("class","p1");
@@ -45,14 +46,13 @@
         p2.setAttribute("class","p2");
         document.querySelector(".content").appendChild(p2);
 
-        p1.innerHTML = "My name has 6 letters";
+        p1.innerHTML = "My name has " + firstName.length + " letters";
 
-        p2.innerHTML = "The third character in my name is N";
+        p2.innerHTML = "The third character in my name is " + firstName.substr(2,1).toUpperCase();
 
         const br = document.createElement("br");
         p2.append(br);
-        p2.append("BLE");
-
+        p2.append(lastName.substr(4));
       }
     </script>
   </body>
