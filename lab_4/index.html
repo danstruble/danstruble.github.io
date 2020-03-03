@@ -26,8 +26,33 @@
     </div>
     <script>
       function clickMe() {
+
+        var firstName = "Daniel";
+        var lastName = "Struble";
+        var nameLength = firstName.length + lastName.length;
+
+
+
         const content = document.querySelector(".content");
         content.innerHTML = "Hello world";
+
+        document.querySelector(".header").innerHTML = "Dan's Lab 4 " + nameLength;
+
+        const p1 = document.createElement("P");
+        p1.setAttribute("class","p1");
+        document.querySelector(".content").appendChild(p1);
+        const p2 = document.createElement("P");
+        p2.setAttribute("class","p2");
+        document.querySelector(".content").appendChild(p2);
+
+        p1.innerHTML = "My name has 6 letters";
+
+        p2.innerHTML = "The third character in my name is N";
+
+        const br = document.createElement("br");
+        p2.append(br);
+        p2.append("BLE");
+
       }
     </script>
   </body>
