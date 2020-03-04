@@ -64,6 +64,26 @@ nav > a:hover {
     padding: 10px;
 }
 
+.assignments {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.assignments > a {
+    padding: 10px;
+    background-color: lightslategray;
+    color: white;
+    height: 100px;
+    width: 250px;
+    margin: 25px;
+    text-decoration: none;
+    align-self: center;
+    justify-self: center;;
+}
+
 .sidebar {
     padding: 10px;
 }
