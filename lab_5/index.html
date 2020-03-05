@@ -9,9 +9,9 @@
 <body>
   <div class="container">
     <div class="wrapper">
-      <div class="header">Test JSON page</div>
+      <div class="header">Dan Struble's List of Countries</div>
       <!-- <button class="button" onclick="loadData()">Load Some JSON</button> -->
-      <button class="button" onclick="console.log('You haven\'t written a function yet!');">Click me to replace list
+      <button class="button" onclick="randomCountries()">Click me to replace list
         entries</button>
       <div class="content">
         <ul class="instructions">
@@ -33,6 +33,24 @@
     </div>
   </div>
   <script>
+    function randomCountries(){
+      const content = document.querySelector(".content");
+
+      var olist = document.createElement("ol");
+
+      for(i=0;i<50;++i){
+        var randomInt = Math.floor(Math.random()*(countries.length));
+        var listEntry = document.createElement("li");
+        
+        listEntry.textContent = countries[randomInt].name;
+
+        olist.appendChild(listEntry);
+
+      }
+
+      content.replaceChild(olist,content.childNodes[1]);
+    }
+
     /* N.B. - For your lab, use the variable "countries" now available on the window space */
     const countries = [
       { "name": "Afghanistan", "code": "AF" },
