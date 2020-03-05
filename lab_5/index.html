@@ -3,7 +3,7 @@
 
 <head>
   <title>Test JSON page</title>
-  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
@@ -35,20 +35,38 @@
   <script>
     function randomCountries(){
       const content = document.querySelector(".content");
-
+      var countryList = [];
+      var unselected = [];
       var olist = document.createElement("ol");
-
-      for(i=0;i<50;++i){
-        var randomInt = Math.floor(Math.random()*(countries.length));
-        var listEntry = document.createElement("li");
-        
-        listEntry.textContent = countries[randomInt].name;
-
-        olist.appendChild(listEntry);
-
-      }
-
+      olist.setAttribute('class','countries');
       content.replaceChild(olist,content.childNodes[1]);
+      unselected = [...countries];
+      for(i=0;i<25;++i){
+        var randomInt = Math.floor(Math.random()*(countries.length));
+        var done = false;
+        while(!done){
+          country = countries[randomInt];
+          if (countryList.includes(country)){
+            randomInt = Math.floor(Math.random()*(countries.length));
+            console.log("Found duplicate",countries[randomInt]);
+          }
+          else {
+            countryList.push(country);
+            unselected.splice(unselected.indexOf(country),1);
+            done = true;
+          }
+        }     
+      }
+      countryList.forEach(enterCountries);
+      console.log("Unselected countries:",unselected);
+    }
+
+    function enterCountries(item){
+      var listEntry = document.createElement("li");
+      var injectList = document.querySelector('.countries');
+      listEntry.innerHTML = "<strong>" + item.code + "</strong> " + item.name;
+
+      injectList.appendChild(listEntry);
     }
 
     /* N.B. - For your lab, use the variable "countries" now available on the window space */
