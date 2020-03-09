@@ -57,6 +57,7 @@
           }
         }     
       }
+      countryList = countryList.sort((a,b) => (a.name > b.name) ? 1 : -1);
       countryList.forEach(enterCountries);
       console.log("Unselected countries:",unselected);
     }
