@@ -8,15 +8,15 @@
       <div class="container">
         <div>
           <h1>HTML 1 Forms Lab</h1>
-          <form>
+          <form action="https://nameless-thicket-21836.herokuapp.com/lab" method="POST">
             <ul>
               <li>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="user-name">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="user-name" maxlength="140">
               </li>
               <li>
-                <label for="textcontent">Thoughts:</label>
-                <textarea id="textcontent" name="user-msg">Tell me how you day is going</textarea>
+                <label for="textcontent">Thoughts:</label><br>
+                <textarea id="textcontent" name="user-msg" cols="30" rows="5">Tell me how your day is going</textarea>
               </li>
               <li>
                 <button type="submit">Submit</button>
