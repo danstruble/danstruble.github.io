@@ -36,10 +36,10 @@ function randomLocations(locationArray){
 }
 
 function createMarker(location){
-    L.marker([location.geocoded_column_1.coordinates[1],location.geocoded_column_1.coordinates[0]]).bindPopup(location.name + "<br>" + location.address_line_1 + "<br>" + location.city + ", " + location.zip).addTo(mymap);
+    L.marker([location.geocoded_column_1.coordinates[1],location.geocoded_column_1.coordinates[0]]).bindPopup("<b>" + location.name + "</b><br>" + location.address_line_1 + "<br>" + location.city + " " + location.state +", " + location.zip).addTo(mymap);
 }
 
-let mymap = L.map('mapid').setView([38.986021, -76.940148], 11);
+let mymap = L.map('mapid').setView([38.986021, -76.940148], 10);
 let hornbakeMarker = L.marker([38.988144, -76.941561]).addTo(mymap);
 hornbakeMarker.bindPopup("<b>Hornbake Library</b><br>Home of the iSchool");
 
