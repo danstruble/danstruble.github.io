@@ -4,31 +4,39 @@ fetch("https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json")
     })
     .then((data) => {
         randomLocations(data);
+    })
+    .then(() => {
+        pickedLocations.forEach(createMarker);
     });
 
 let pickedLocations = [];
 
 function randomLocations(locationArray){
     let randomInt = Math.floor(Math.random()*(locationArray.length));
-
-    console.log(pickedLocations);
-    if(pickedLocations.includes(locationArray[randomInt])){
+    let picked = locationArray[randomInt];
+    
+    if(pickedLocations.includes(picked)){
         randomLocations(locationArray);
-        console.log("Duplicate result: ", locationArray[randomInt].name)
+        console.log("Duplicate result: ", picked.name)
     }
     else{
-        pickedLocations.push(locationArray[randomInt]);
-        console.log("Picked: ", locationArray[randomInt].name);
+        if(picked.hasOwnProperty("geocoded_column_1")){
+            pickedLocations.push(picked);
+        console.log("Picked: ", picked.name);
+        }
+        else{
+            randomLocations(locationArray);
+        }   
     }
 
     if(pickedLocations.length < 3){
         randomLocations(locationArray);
     }
+    console.log(pickedLocations);
 }
 
 function createMarker(location){
-    console.log("hello");
-    //L.marker([locationArray[randomInt].geocoded_column_1.coordinates[1],locationArray[randomInt].geocoded_column_1.coordinates[0]]).bindPopup(locationArray[randomInt].name).addTo(mymap);
+    L.marker([location.geocoded_column_1.coordinates[1],location.geocoded_column_1.coordinates[0]]).bindPopup(location.name + "<br>" + location.address_line_1 + "<br>" + location.city + ", " + location.zip).addTo(mymap);
 }
 
 let mymap = L.map('mapid').setView([38.986021, -76.940148], 11);
@@ -43,6 +51,3 @@ tileSize: 512,
 zoomOffset: -1,
 accessToken: 'pk.eyJ1IjoiZGFuaWVsc3RydWJsZSIsImEiOiJjazhrb3U2eHUwNDY1M2xwaGE0azZlaXE4In0.3m4xy6Y2go6c-JJ3gIgfGw'
 }).addTo(mymap);
-
-console.log(pickedLocations);
-pickedLocations.forEach(createMarker);
