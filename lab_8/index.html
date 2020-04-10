@@ -16,7 +16,7 @@
       </div>
     </div>
     <script>
-      fetch('./countries.json')
+      fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json')
         .then((data) => JSON.parse(data)) // this is an "implicit return" - we're returning the results of the Fetch request to the next step.
         .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
           console.log(data);
