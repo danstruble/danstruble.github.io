@@ -10,28 +10,85 @@
       <div class="wrapper">
         <div class="header">Frontend Libraries: Charts Lab</div>
         <div class="content">
+          <div id="chartContainer">
           When your lab is done, this should be replaced with a useful chart full of food data.
+          </div>
         </div>
-        <div class="footer">Let's eat out in the future!</div>
+        <div class="footer">Let's <i>not</i> eat out in the future!</div>
       </div>
     </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
       fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json')
-        .then((data) => data.json()) // this is an "implicit return" - we're returning the results of the Fetch request to the next step.
-        .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
-          console.log("Entries: ", data.length);
+        .then((response) => response.json()) // this is an "implicit return" - we're returning the results of the Fetch request to the next step.
+        .then((parsedResponse) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
+          console.log("Entries: ", parsedResponse.length);
 
-          return data; // <- this will pass the data to the next "then" statement when I'm ready.
+          return parsedResponse; // <- this will pass the data to the next "then" statement when I'm ready.
         })
-        .then((data) => {
+        .then((parsedResponse) => {
 
-          const categoryCount = data.reduce((count, entry) => {
+          const categoryCount = parsedResponse.reduce((count, entry) => {
               count[entry.category] = count[entry.category] || 0;
               count[entry.category]++;
               return count;
           },{})
           
           return categoryCount;
+        })
+        .then((counts) => {
+
+          let data = Object.entries(counts);
+          let dataPoints = [];
+
+          data.forEach(element => {
+            dataPoints.push({y:element[1],label:element[0]});
+          });
+          
+          dataPoints.sort(function (a,b){
+            return a.y - b.y;
+          })
+
+          return dataPoints;
+
+        })
+        .then((prettyDataPoints) => {
+
+          console.log(prettyDataPoints)
+          var chart = new CanvasJS.Chart("chartContainer", {
+              animationEnabled: true,
+              animationDuration: 4000,
+              theme: "light2",
+              title:{
+                text:"Health Code Violations by Establishment Type in PG County, MD",
+                fontSize: 28
+              },
+              axisX:{
+                interval: .5,
+                labelWrap: false,
+                labelFontSize: 12
+              },
+              axisY2:{
+                title: "Number of Violations",
+                titleFontSize: 18,
+                labelAngle: 0,
+                labelWrap: false,
+                labelMaxWidth: 100,
+                scaleBreaks: {
+                    type: "wavy",
+                    autoCalculate: true,
+                    lineDashType: "dash",
+                    
+                }
+              },
+              data: [{
+                type: "bar",
+                name: "companies",
+                axisYType: "secondary",
+                dataPoints: prettyDataPoints
+              }]
+            });
+          chart.render();
         });
     </script>
   </body>

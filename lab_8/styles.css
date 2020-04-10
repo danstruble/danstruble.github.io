@@ -30,6 +30,11 @@ h3 {
   font-family: Helvetica, Geneva, Tahoma, sans-serif;
 }
 
+#chartContainer {
+  width: 800px;
+  height: 600px;
+}  
+
 .wrapper {
   min-height: 100%;
   display: flex;
