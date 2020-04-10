@@ -28,8 +28,8 @@
         })
         .then((parsedResponse) => {
 
-          const categoryCount = parsedResponse.reduce((count, entry) => {
-              count[entry.category] = count[entry.category] || 0;
+          const categoryCount = parsedResponse.reduce((count, entry) => { // uses reduce function to go count the categories of all of the entries in the parsed data
+              count[entry.category] = count[entry.category] || 0;         // by using a new object "count" to store the category counts, and incrementing every time it finds a new one
               count[entry.category]++;
               return count;
           },{})
@@ -37,7 +37,8 @@
           return categoryCount;
         })
         .then((counts) => {
-
+          
+          // This takes the category count object and turns it into an array of objects readable by CanvasJS, and then sorts it
           let data = Object.entries(counts);
           let dataPoints = [];
 
@@ -54,7 +55,7 @@
         })
         .then((prettyDataPoints) => {
 
-          console.log(prettyDataPoints)
+          // self explanatory, just creates a chart with the data from the last .then statement
           var chart = new CanvasJS.Chart("chartContainer", {
               animationEnabled: true,
               animationDuration: 4000,
