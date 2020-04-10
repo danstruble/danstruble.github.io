@@ -21,8 +21,18 @@
         .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
           console.log("Entries: ", data.length);
 
-          // return data; // <- this will pass the data to the next "then" statement when I'm ready.
+          return data; // <- this will pass the data to the next "then" statement when I'm ready.
         })
+        .then((data) => {
+
+          const categoryCount = data.reduce((count, entry) => {
+              count[entry.category] = count[entry.category] || 0;
+              count[entry.category]++;
+              return count;
+          },{})
+          
+          return categoryCount;
+        });
     </script>
   </body>
 </html>
