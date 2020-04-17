@@ -28,10 +28,33 @@ function processDataForFrontEnd(req, res) {
   // Note that at no point do you "return" anything from this function -
   // it instead handles returning data to your front end at line 34.
     fetch(baseURL)
-      .then((r) => r.json())
-      .then((data) => {
-        console.log(data);
-        res.send({ data: data }); // here's where we return data to the front end
+      .then((response) => response.json())
+      .then((parsedResponse) => {
+        const categoryCount = parsedResponse.reduce((count, entry) => { // uses reduce function to go count the categories of all of the entries in the parsed data
+          count[entry.category] = count[entry.category] || 0;         // by using a new object "count" to store the category counts, and incrementing every time it finds a new one
+          count[entry.category]++;
+          return count;
+        },{})
+      
+      return categoryCount;
+        
+        // console.log(data);
+        // res.send({ data: data }); // here's where we return data to the front end
+      })
+      .then((counts) => {
+        let data = Object.entries(counts);
+        let dataPoints = [];
+
+        data.forEach(element => {
+          dataPoints.push({y:element[1],label:element[0]});
+        });
+        
+        dataPoints.sort(function (a,b){
+          return a.y - b.y;
+        })
+
+        res.send({data:dataPoints})
+        
       })
       .catch((err) => {
         console.log(err);
