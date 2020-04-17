@@ -9,16 +9,52 @@
 <body>
   <div class="container">
     <div class="wrapper">
-      <div class="header">Replace Me With Your Lab Page</div>
-      <div class="content"></div>
+      <div class="header">Dan Struble's Lab 9</div>
+      <div class="content">
+        <div id="chartContainer"></div>
+      </div>
       <div class="footer"></div>
     </div>
   </div>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script>
     fetch('/api') // Rather than fetching from PG County, we're going to fetch from our own server.
       .then(res => res.json())
       .then(res => {
-        // Here's where your chart code should go.
+        var chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          animationDuration: 4000,
+          theme: "light2",
+          title:{
+            text:"Health Code Violations by Establishment Type in PG County, MD",
+            fontSize: 28
+          },
+          axisX:{
+            interval: .5,
+            labelWrap: false,
+            labelFontSize: 12
+          },
+          axisY2:{
+            title: "Number of Violations",
+            titleFontSize: 18,
+            labelAngle: 0,
+            labelWrap: false,
+            labelMaxWidth: 100,
+            scaleBreaks: {
+                type: "wavy",
+                autoCalculate: true,
+                lineDashType: "dash",
+                
+            }
+          },
+          data: [{
+            type: "bar",
+            name: "companies",
+            axisYType: "secondary",
+            dataPoints: res.data
+          }]
+        });
+          chart.render();
       })
   </script>
 </body>
