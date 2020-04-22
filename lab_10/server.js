@@ -48,5 +48,8 @@ app.route('/api')
     console.log("/api post request", req.body);
     res.send('your request was successful'); // simple mode
   })
+  .put((req, res) => {
+    console.log("/api put request" , req.body);
+  })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
