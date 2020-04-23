@@ -22,6 +22,7 @@
             </textarea
             ><br />
             <button id="formBtn">Submit</button>
+            <button id="getBtn">Display Records</button>
           </form>
         </div>
       </div>
@@ -51,8 +52,23 @@
           });
       }
 
+      function getRecords() {
+        fetch("/api", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }
+
       const formBtn = document.querySelector("#formBtn");
       formBtn.addEventListener("click", sendForm);
+      const recordBtn = document.querySelector("#getBtn");
+      recordBtn.addEventListener("click", getRecords);
     </script>
   </body>
 </html>
