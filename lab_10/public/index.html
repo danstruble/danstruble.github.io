@@ -51,8 +51,19 @@
             target.append(data.body);
           });
       }
+      const target = document.querySelector("#labForm");
+      const ol = document.createElement("ol");
 
-      function getRecords() {
+      function prettyData(rawRow) {
+        console.log(rawRow);
+        const li = document.createElement("li");
+        li.innerHTML = ("<b>Name:</b> "+rawRow.name+ "<br><b>Zip:</b> " + rawRow.zip+ "<br><b>Interests:</b> " + rawRow.interests);
+        ol.append(li)
+      }
+
+      function getRecords(e) {
+        e.preventDefault();        
+
         fetch("/api", {
           method: "GET",
           headers: {
@@ -61,7 +72,8 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            data.data.forEach(prettyData);
+            target.append(ol);
           });
       }
 
