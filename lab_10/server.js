@@ -15,6 +15,12 @@ const db = new sqlite3.Database(':memory:', (err) => {
   console.log('Connected to the in-memory SQL database');
 });
 
+db.run("CREATE TABLE forms (form_id INTEGER PRIMARY KEY,name TEXT,zip TEXT,interests TEXT);",(err) => {
+  if(err) {
+    return console.log(err.message); 
+  }
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -50,6 +56,13 @@ app.route('/api')
   })
   .put((req, res) => {
     console.log("/api put request" , req.body);
+
+    db.run("INSERT INTO forms(name, zip, interests) VALUES(?,?,?);", [req.body.name,req.body.zip,req.body.interests], (err) => {
+      if(err) {
+        return console.log(err.message); 
+      }
+    });
+    
   })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
