@@ -61,6 +61,7 @@ app.route('/api')
       if(err) {
         return console.log(err.message); 
       }
+      res.json({body:"Your form has been stored"});
     });
     
   })
